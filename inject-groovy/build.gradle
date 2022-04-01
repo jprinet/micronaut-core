@@ -45,3 +45,10 @@ tasks.named("test") {
 
 //compileTestGroovy.groovyOptions.forkOptions.jvmArgs = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
 //compileGroovy.groovyOptions.forkOptions.jvmArgs = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
+
+tasks.getByName("japiCmp").configure{
+    doFirst {
+        println "rules: ${it.getRichReport().get().getRules().get().toString()}"
+        buildScan.value("rules",it.getRichReport().get().getRules().get().toString())
+    }
+}

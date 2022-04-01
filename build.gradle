@@ -5,6 +5,12 @@ plugins {
     id "io.micronaut.build.internal.convention-quality"
 }
 
+repositories {
+    mavenCentral()
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+
 tasks.named("updateVersionCatalogs") {
     // we set the list to empty because we accept upgrades which improve the status
     rejectedQualifiers = []
@@ -14,3 +20,4 @@ tasks.named("updateVersionCatalogs") {
     // workaround Gradle variant selection problem
     ignoredModules.add("com.github.ben-manes.caffeine:caffeine")
 }
+

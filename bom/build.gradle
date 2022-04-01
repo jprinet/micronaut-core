@@ -5,6 +5,13 @@ plugins {
 group projectGroupId
 version projectVersion
 
+tasks.getByName("checkBom").configure{
+    doFirst {
+        println "REPO: ${it.repositories.get().toString()}"
+        buildScan.value("repo",it.repositories.get().toString())
+    }
+}
+
 micronautBom {
     extraExcludedProjects = [
             "benchmarks",
@@ -42,7 +49,7 @@ micronautBom {
         // https://github.com/micronaut-projects/micronaut-data/issues/1403
         dependencies.add("io.micronaut.data:micronaut-data-tck:3.3.0")
         dependencies.add("io.micronaut.data:micronaut-data-document-tck:3.3.0")
-        
+
         // The R2DBC bom that we include mentions dependencies which do not belong to io.r2dbc group
         bomAuthorizedGroupIds.put("io.r2dbc:r2dbc-bom", ["com.google.cloud", "com.oracle.database.r2dbc", "org.mariadb", "dev.miku"] as Set)
     }
