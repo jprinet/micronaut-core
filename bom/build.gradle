@@ -5,6 +5,13 @@ plugins {
 group projectGroupId
 version projectVersion
 
+tasks.getByName("checkBom").configure{
+    doLast {
+        println "REPO: ${it.repositories.get().toString()}"
+        buildScan.value("repo",it.repositories.get().toString())
+    }
+}
+
 micronautBom {
     extraExcludedProjects = [
             "benchmarks",
